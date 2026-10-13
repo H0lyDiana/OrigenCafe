@@ -54,8 +54,30 @@
     box-shadow:0 4px 14px rgba(224,169,95,.28)}
   h1{font-size:17px; font-weight:600; letter-spacing:.5px}
   .sub{font-size:11px; color:var(--tx3); letter-spacing:2px; margin-top:1px}
-  .hd-date{margin-left:auto; text-align:right; font-size:11px; color:var(--tx3)}
+  .hd-right{margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:7px}
+  .hd-date{text-align:right; font-size:11px; color:var(--tx3)}
   .hd-date b{display:block; color:var(--tx2); font-size:12px; font-weight:500}
+
+  /* 中英切换开关 */
+  .lang-sw{display:flex; align-items:center; gap:2px; padding:2px; border-radius:9px; flex:none;
+    background:rgba(255,255,255,.05); border:1px solid var(--line2); cursor:pointer;
+    -webkit-user-select:none; user-select:none; transition:.18s}
+  .lang-sw:active{background:rgba(255,255,255,.09)}
+  .lang-sw span{font-size:10px; font-weight:600; padding:3px 7px; border-radius:7px; line-height:1.2;
+    color:var(--tx3); transition:.18s; white-space:nowrap}
+  .lang-sw span.on{background:linear-gradient(145deg,var(--gold2),#c98a3c); color:#1a1411;
+    box-shadow:0 2px 8px -2px rgba(224,169,95,.7)}
+
+  /* 英文排版微调：英文单词更长，压缩字号避免换行/溢出 */
+  html[lang="en"] h1{font-size:14.5px; letter-spacing:.1px}
+  html[lang="en"] .sub{font-size:9.5px; letter-spacing:1.4px; text-transform:uppercase}
+  html[lang="en"] .cyc{font-size:9px; letter-spacing:-.1px}
+  html[lang="en"] .nm{letter-spacing:0}
+  html[lang="en"] .day.eff .dc::after{content:"ON"}
+  html[lang="en"] td{font-size:12px}
+  html[lang="en"] .tbl td:first-child{font-size:11.5px}
+  html[lang="en"] .note p{font-size:11px}
+  html[lang="en"] .emp .en{font-size:12px; line-height:1.3}
 
   .hero{margin:0 14px 14px; border-radius:20px; padding:16px 16px 14px; position:relative; overflow:hidden;
     background:linear-gradient(150deg,#2d221b 0%,#1e1815 70%); border:1px solid var(--line2)}
@@ -123,6 +145,29 @@
   .earn .n{font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.2px}
   .earn .d{font-size:10px; color:var(--tx3); margin-top:2px}
   .earn .up{color:var(--gold2)}
+
+  /* ---------- 未选商品折叠 ---------- */
+  .hide{display:none !important}
+  .idle-wrap{margin-top:14px}
+  .fold{display:none; align-items:center; gap:7px; cursor:pointer; transition:.18s;
+    font-size:11.5px; color:var(--tx3); padding:10px 13px; border-radius:13px;
+    background:rgba(255,255,255,.022); border:1px dashed var(--line2);
+    -webkit-user-select:none; user-select:none}
+  .fold.on{display:flex}
+  .fold:active{background:rgba(255,255,255,.05)}
+  .fold .arw{width:13px; height:13px; display:flex; align-items:center; justify-content:center;
+    flex:none; transition:transform .22s ease}
+  .fold .arw svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.6;
+    stroke-linecap:round; stroke-linejoin:round}
+  .fold.open .arw{transform:rotate(90deg)}
+  .list.minis{margin-top:8px; gap:6px; grid-template-columns:1fr}
+  .item.mini{padding:9px 12px; gap:9px; border-radius:12px;
+    background:rgba(255,255,255,.022); border-color:var(--line)}
+  .item.mini .tick{width:17px; height:17px; border-radius:6px}
+  .item.mini .tick svg{width:10px; height:10px}
+  .item.mini .nm{flex:1; font-size:13px; font-weight:500; color:var(--tx2); letter-spacing:0}
+  .item.mini .pv{font-size:12.5px; font-weight:600; color:var(--tx3); font-variant-numeric:tabular-nums; flex:none}
+  .item.mini .pv.hit{color:var(--cat-c)}
 
   .tbl{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden}
   table{width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums}
@@ -234,6 +279,9 @@
     .earn .n{font-size:14px}
     .bf .bv{font-size:13px}
     .cal{gap:4px}
+    .lang-sw span{font-size:9px; padding:3px 5px}
+    html[lang="en"] .lang-sw span{font-size:8.5px}
+    html[lang="en"] .bf .bk{font-size:8.5px}
   }
 
   /* ================= 平板端（600–959px） ================= */
@@ -242,6 +290,7 @@
     nav{max-width:680px}
     .stats{gap:12px}
     .list{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .list.minis{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
   }
 
   /* ================= 桌面端适配（≥960px） ================= */
@@ -262,6 +311,15 @@
     .sub{font-size:11.5px; letter-spacing:2.4px}
     .hd-date{font-size:12px}
     .hd-date b{font-size:13px}
+    .hd-right{flex-direction:row; align-items:center; gap:14px}
+    .lang-sw span{font-size:10.5px; padding:4px 9px}
+    html[lang="en"] h1{font-size:17px}
+    html[lang="en"] .sub{font-size:10.5px; letter-spacing:2px}
+    html[lang="en"] .cyc{font-size:11px; letter-spacing:0}
+    html[lang="en"] td{font-size:13px}
+    html[lang="en"] .tbl td:first-child{font-size:12.5px}
+    html[lang="en"] .note p{font-size:12px}
+    html[lang="en"] .emp .en{font-size:12.5px}
 
     /* 侧边栏导航 */
     nav{
@@ -306,6 +364,9 @@
     .list{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
     .item{padding:14px 16px}
     .nm{font-size:14.5px}
+    .list.minis{grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:9px}
+    .item.mini:hover{border-color:var(--line2); background:rgba(255,255,255,.05)}
+    .fold:hover{color:var(--tx2); border-color:rgba(255,255,255,.22)}
 
     /* 表格 */
     th{padding:12px 12px; font-size:11px}
@@ -360,110 +421,105 @@
   <header>
     <div class="brand">
       <div class="logo">☕</div>
-      <div><h1>一咖舍</h1><div class="sub">经营计算器</div></div>
-      <div class="hd-date"><b id="todayStr">—</b><span id="todayCat">—</span></div>
+      <div><h1 data-t="appName">一咖舍</h1><div class="sub" data-t="appSub">经营计算器</div></div>
+      <div class="hd-right">
+        <div class="hd-date"><b id="todayStr">—</b><span id="todayCat">—</span></div>
+        <div class="lang-sw" id="langSw" title="中 / EN">
+          <span data-l="zh" class="on">中</span><span data-l="en">EN</span>
+        </div>
+      </div>
     </div>
   </header>
 
   <div class="hero" id="hero">
     <div class="hero-top">
       <div>
-        <div class="hero-lbl">当日风向标</div>
+        <div class="hero-lbl" data-t="heroLbl">当日风向标</div>
         <div class="hero-date">
           <input type="date" id="dateIn">
           <span id="weekday" style="color:var(--tx3)"></span>
         </div>
-        <button class="auto-btn" id="btnAuto">回到当前生效日</button>
+        <button class="auto-btn" id="btnAuto" data-t="btnAuto">回到当前生效日</button>
       </div>
       <div style="text-align:right">
         <div class="chip" id="trendChip"><span class="dot"></span><span id="trendName">—</span><span class="chip-add" id="trendAdd"></span></div>
-        <div style="font-size:10px; color:var(--tx3); margin-top:7px" id="trendTip">命中品类价格 +0</div>
+        <div style="font-size:10px; color:var(--tx3); margin-top:7px" id="trendTip">—</div>
       </div>
     </div>
     <div class="cycle" id="cycle"></div>
     <div class="hero-note">
-      <span class="hn-a"><i class="pl"></i>12:00 前沿用前一日加成</span>
+      <span class="hn-a"><i class="pl"></i><span data-t="noteA"></span></span>
       <span class="hn-b" id="heroNote">—</span>
     </div>
   </div>
 
   <div class="stats">
-    <div class="st"><div class="k">小时营收</div><div class="v" id="sRev">0<span class="u">/h</span></div></div>
-    <div class="st"><div class="k">人流量加成</div><div class="v" id="sMul">0<span class="u">×</span></div></div>
-    <div class="st"><div class="k">总人流量</div><div class="v" id="sFlow">0</div></div>
+    <div class="st"><div class="k" data-t="statRev">小时营收</div><div class="v" id="sRev">0<span class="u">/h</span></div></div>
+    <div class="st"><div class="k" data-t="statMul">人流量加成</div><div class="v" id="sMul">0<span class="u">×</span></div></div>
+    <div class="st"><div class="k" data-t="statFlow">总人流量</div><div class="v" id="sFlow">0</div></div>
   </div>
 
   <div class="views">
 
     <section class="view on" id="v-earn">
-      <div class="sec-t"><h2>上架商品</h2><span id="selCount">已选 5 / 9</span></div>
+      <div class="sec-t"><h2 data-t="listTitle">上架商品</h2><span id="selCount">—</span></div>
       <div class="list" id="selList"></div>
 
-      <div class="sec-t" style="margin-top:16px"><h2>各风向标对照</h2><span>按当前上架商品</span></div>
+      <div class="idle-wrap hide" id="idleWrap">
+        <div class="fold" id="foldBar">
+          <span class="arw"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span><span id="foldText"></span>
+        </div>
+        <div class="list minis hide" id="idleList"></div>
+      </div>
+
+      <div class="sec-t" style="margin-top:16px"><h2 data-t="cmpTitle">各风向标对照</h2><span data-t="cmpSub"></span></div>
       <div class="tbl cmp">
         <table>
-          <thead><tr><th>风向标</th><th>加成</th><th>命中</th><th>小时营收</th></tr></thead>
+          <thead><tr><th data-t="thTrend">风向标</th><th data-t="thAdd">加成</th><th data-t="thHit">命中</th><th data-t="thRev">小时营收</th></tr></thead>
           <tbody id="cmpBody"></tbody>
         </table>
       </div>
     </section>
 
     <section class="view" id="v-goods">
-      <div class="sec-t"><h2>商品收益总览</h2><span id="goodsCat">—</span></div>
+      <div class="sec-t"><h2 data-t="goodsTitle">商品收益总览</h2><span id="goodsCat">—</span></div>
       <div class="tbl">
         <table>
-          <thead><tr><th>商品</th><th>基础</th><th>加成价</th><th>无风向标</th><th>今日收益</th></tr></thead>
+          <thead><tr><th data-t="thItem">商品</th><th data-t="thBase">基础</th><th data-t="thAdj">加成价</th><th data-t="thNo">无风向标</th><th data-t="thToday">今日收益</th></tr></thead>
           <tbody id="goodsBody"></tbody>
         </table>
       </div>
-      <div class="note">
-        <h3>计算规则</h3>
-        <p>
-          每个商品由若干种<b>原料</b>构成，风向标加成作用于原料：<br>
-          · 原料命中当日风向标 → 基础价格额外 <code>+风向标加成</code> 再计算<br>
-          · 未命中 → 只按加成价计算<br>
-          加成价 = (基础价格 + 售价加成) × (1 + 售价加成%)<br>
-          收益 = 加成价 × 24 × 人流量加成
-        </p>
-      </div>
+      <div class="note" data-th="goodsNote"></div>
     </section>
 
     <section class="view" id="v-emp">
-      <div class="sec-t"><h2>加成汇总</h2><span>来自上阵雇员</span></div>
+      <div class="sec-t"><h2 data-t="empTitle">加成汇总</h2><span data-t="empSub"></span></div>
       <div class="buffrow">
-        <div class="bf"><div class="bk">人流量</div><div class="bv" id="b-flow">0</div></div>
-        <div class="bf"><div class="bk">售价加成</div><div class="bv" id="b-sellAdd">0</div></div>
-        <div class="bf"><div class="bk">售价加成%</div><div class="bv" id="b-sellPct">0</div></div>
-        <div class="bf"><div class="bk">人流量%</div><div class="bv" id="b-flowPct">0</div></div>
+        <div class="bf"><div class="bk" data-t="kFlow">人流量</div><div class="bv" id="b-flow">0</div></div>
+        <div class="bf"><div class="bk" data-t="kSellAdd">售价加成</div><div class="bv" id="b-sellAdd">0</div></div>
+        <div class="bf"><div class="bk" data-t="kSellPct">售价加成%</div><div class="bv" id="b-sellPct">0</div></div>
+        <div class="bf"><div class="bk" data-t="kFlowPct">人流量%</div><div class="bv" id="b-flowPct">0</div></div>
       </div>
 
-      <div class="sec-t"><h2>雇员编排</h2><span>点击卡片切换上阵</span></div>
+      <div class="sec-t"><h2 data-t="maxTitle">雇员编排</h2><span data-t="maxSub"></span></div>
       <div class="cols">
         <div>
-          <div class="col-t"><b>已使用</b><span class="cnt" id="c-used"></span></div>
+          <div class="col-t"><b data-t="colUsed">已使用</b><span class="cnt" id="c-used"></span></div>
           <div class="col-in" id="col-used"></div>
         </div>
         <div>
-          <div class="col-t"><b>未使用</b><span class="cnt" id="c-idle"></span></div>
+          <div class="col-t"><b data-t="colIdle">未使用</b><span class="cnt" id="c-idle"></span></div>
           <div class="col-in" id="col-idle"></div>
         </div>
       </div>
 
-      <div class="reset" id="btnReset">恢复表格默认编排</div>
+      <div class="reset" id="btnReset" data-t="resetBtn">恢复表格默认编排</div>
 
-      <div class="note">
-        <h3>规则</h3>
-        <p>
-          上阵上限 <code>10 名雇员 + 1 名专属客服</code>，只有「已使用」一侧的加成参与计算。<br>
-          总人流量 = (2400 + Σ人流量) × (1 + Σ人流量%)<br>
-          人流量加成 = 总人流量 ÷ 2400<br>
-          默认编排下：(2400 + 279) × 1.035 = <code>2772.77</code>，加成 <code>1.1553×</code>
-        </p>
-      </div>
+      <div class="note" data-th="empNote"></div>
     </section>
 
     <section class="view" id="v-cal">
-      <div class="sec-t"><h2>风向标日历</h2><span>6 日一循环</span></div>
+      <div class="sec-t"><h2 data-t="calTitle">风向标日历</h2><span data-t="calSub"></span></div>
       <div class="cal-wrap">
         <div class="cal-main">
           <div class="cal" id="calHead"></div>
@@ -471,11 +527,7 @@
         </div>
         <div class="cal-side">
           <div class="legend" id="legend"></div>
-          <div class="note">
-            <h3>循环顺序</h3>
-            <p>主食 → 甜品 → 饮料 → 面粉 → 水果 → 咖啡豆，每 6 天一轮。主食 / 甜品 / 饮料加成为 <code>1</code>，面粉 / 水果 / 咖啡豆加成为 <code>0.75</code>。</p>
-            <p style="margin-top:7px">加成在 <b style="color:var(--gold2)">当日 12:00</b> 起生效，12:00 之前仍沿用前一天的加成（金色「生效」格为当前生效日）。</p>
-          </div>
+          <div class="note" data-th="calNote"></div>
         </div>
       </div>
     </section>
@@ -486,13 +538,13 @@
 
   <nav>
     <div class="tab on" data-v="earn">
-      <svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg><span>收益</span></div>
+      <svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg><span data-t="navEarn">收益</span></div>
     <div class="tab" data-v="goods">
-      <svg viewBox="0 0 24 24"><path d="M6 3h12l1 6H5l1-6Z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/></svg><span>商品</span></div>
+      <svg viewBox="0 0 24 24"><path d="M6 3h12l1 6H5l1-6Z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/></svg><span data-t="navGoods">商品</span></div>
     <div class="tab" data-v="emp">
-      <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16 8.5a3 3 0 1 1 0 5.6M17.5 14.9c2.1.6 3.5 2.1 3.5 4.4"/></svg><span>雇员</span></div>
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16 8.5a3 3 0 1 1 0 5.6M17.5 14.9c2.1.6 3.5 2.1 3.5 4.4"/></svg><span data-t="navEmp">雇员</span></div>
     <div class="tab" data-v="cal">
-      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>日历</span></div>
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-t="navCal">日历</span></div>
   </nav>
 </div>
 <div class="toast" id="toast"></div>
@@ -545,6 +597,157 @@ const BASE_FLOW = 2400;
 const BASE_DAY = Date.UTC(2026,8,11);
 const KEY = 'yikaishe.v3';
 
+/* ================= 中英词条（英文词条参考 word.xlsx） ================= */
+const CAT_EN   = {'主食':'Main Dishes','甜品':'Desserts','饮料':'Beverages','面粉':'Flour','水果':'Fruit','咖啡豆':'Coffee Beans'};
+const CAT_EN_S = {'主食':'Main','甜品':'Dessert','饮料':'Drink','面粉':'Flour','水果':'Fruit','咖啡豆':'Coffee'};
+const PROD_EN = {
+  '红豆黄油可颂':'Red Bean & Butter Crossiant',
+  '草莓盒子蛋糕':'Strawberry Box Cake',
+  '橙香热咖啡':'Orange Hot Coffee',
+  '炸猪排三明治':'Pork Cutlet',
+  '脆椰曲奇玛奇朵':'Coconut Macchiato',
+  '雪顶抹茶拿铁':'Matcha Latte with Milk Cap',
+  '提拉米苏':'Tiramisu',
+  '火腿芝士可颂':'Ham & Cheese',
+  '焦糖可可千层':'Caramel & Cocoa Mille-Feuille',
+};
+const EMP_EN = {
+  '早雾':'Sakiri','安魂曲':'Lacrimosa','翳':'Skia','娜娜莉':'Nanally','薄荷':'Mint','哈尼娅':'Haniel',
+  '埃德嘉':'Edgar','白藏':'Baicang','哈索尔':'Hathor','阿德勒':'Adler','达芙蒂尔':'Daffodill',
+  '海月':'Aurelia','小吱':'Chiz','伊洛伊':'Iroi','真红':'Shinku','明音凛':'Akane Rin','灵可':'Lingke',
+};
+
+const I18N = {
+  zh:{
+    docTitle:'一咖舍 · 经营计算器',
+    appName:'一咖舍', appSub:'经营计算器',
+    todayCat:'{cat} 生效中',
+    heroLbl:'当日风向标',
+    tip:'命中品类价格 +{n}',
+    btnAuto:'回到当前生效日',
+    noteA:'12:00 前沿用前一日加成',
+    noteAuto:'<b>{clock}</b> 后切换 → {date} {cat}',
+    noteManual:'手动选择中 · <b>{clock}</b> 后进 {date} {cat}',
+    statRev:'小时营收', statMul:'人流量加成', statFlow:'总人流量',
+    listTitle:'上架商品', selCount:'已选 {n} / {t}',
+    foldShow:'未选中 {n} 个', foldHide:'收起未选中 {n} 个',
+    cmpTitle:'各风向标对照', cmpSub:'按当前上架商品',
+    thTrend:'风向标', thAdd:'加成', thHit:'命中', thRev:'小时营收',
+    itemBase:'基础', itemAdj:'加成价', itemHit:'命中 {cat}', itemMiss:'未命中',
+    goodsTitle:'商品收益总览', goodsCat:'当前：{cat} ×{n}',
+    thItem:'商品', thBase:'基础', thAdj:'加成价', thNo:'无风向标', thToday:'今日收益',
+    empTitle:'加成汇总', empSub:'来自上阵雇员',
+    kFlow:'人流量', kSellAdd:'售价加成', kSellPct:'售价加成%', kFlowPct:'人流量%',
+    maxTitle:'雇员编排', maxSub:'点击卡片切换上阵',
+    colUsed:'已使用', colIdle:'未使用',
+    resetBtn:'恢复表格默认编排',
+    calTitle:'风向标日历', calSub:'6 日一循环',
+    csName:'专属客服', csTag:'专属',
+    navEarn:'收益', navGoods:'商品', navEmp:'雇员', navCal:'日历',
+    weekdays:['日','一','二','三','四','五','六'],
+    toastMax:'最多上阵 {n} 名雇员，请先撤下一位',
+    toastSwitch:'已切到 {d}', toastBack:'已回到当前生效日',
+    toastReset:'已恢复表格默认编排', toastLang:'已切换为 {l}',
+    langLabel:'中文',
+    goodsNote:`<h3>计算规则</h3>
+        <p>
+          每个商品由若干种<b>原料</b>构成，风向标加成作用于原料：<br>
+          · 原料命中当日风向标 → 基础价格额外 <code>+风向标加成</code> 再计算<br>
+          · 未命中 → 只按加成价计算<br>
+          加成价 = (基础价格 + 售价加成) × (1 + 售价加成%)<br>
+          收益 = 加成价 × 24 × 人流量加成
+        </p>`,
+    empNote:`<h3>规则</h3>
+        <p>
+          上阵上限 <code>10 名雇员 + 1 名专属客服</code>，只有「已使用」一侧的加成参与计算。<br>
+          总人流量 = (2400 + Σ人流量) × (1 + Σ人流量%)<br>
+          人流量加成 = 总人流量 ÷ 2400<br>
+          默认编排下：(2400 + 279) × 1.035 = <code>2772.77</code>，加成 <code>1.1553×</code>
+        </p>`,
+    calNote:`<h3>循环顺序</h3>
+            <p>主食 → 甜品 → 饮料 → 面粉 → 水果 → 咖啡豆，每 6 天一轮。主食 / 甜品 / 饮料加成为 <code>1</code>，面粉 / 水果 / 咖啡豆加成为 <code>0.75</code>。</p>
+            <p style="margin-top:7px">加成在 <b style="color:var(--gold2)">当日 12:00</b> 起生效，12:00 之前仍沿用前一天的加成（金色「生效」格为当前生效日）。</p>`,
+  },
+  en:{
+    docTitle:'Origen Cafe · Business Calculator',
+    appName:'The Cafe by Origen', appSub:'Business Calculator',
+    todayCat:'{cat} active',
+    heroLbl:"Today's Trend",
+    tip:'Matched category price +{n}',
+    btnAuto:'Back to current day',
+    noteA:"Before 12:00, previous day's bonus applies",
+    noteAuto:'Switch in <b>{clock}</b> → {date} {cat}',
+    noteManual:'Manual · next {date} {cat} in <b>{clock}</b>',
+    statRev:'Revenue/h', statMul:'Popularity Bonus', statFlow:'Total Traffic',
+    listTitle:'Listed Items', selCount:'Selected {n} / {t}',
+    foldShow:'{n} not selected', foldHide:'Hide {n} unselected',
+    cmpTitle:'Trend Comparison', cmpSub:'Based on listed items',
+    thTrend:'Trend', thAdd:'Bonus', thHit:'Hits', thRev:'Revenue/h',
+    itemBase:'Base', itemAdj:'Adj.', itemHit:'Matched {cat}', itemMiss:'No match',
+    goodsTitle:'Item Revenue Overview', goodsCat:'Now: {cat} ×{n}',
+    thItem:'Item', thBase:'Base', thAdj:'Adj.', thNo:'No Trend', thToday:'Today',
+    empTitle:'Bonus Summary', empSub:'From deployed employees',
+    kFlow:'Traffic', kSellAdd:'Price Add', kSellPct:'Price Add%', kFlowPct:'Traffic%',
+    maxTitle:'Employee Setup', maxSub:'Tap a card to deploy',
+    colUsed:'Deployed', colIdle:'Idle',
+    resetBtn:'Restore default lineup',
+    calTitle:'Trend Calendar', calSub:'6-day cycle',
+    csName:'Exclusive Customer Service', csTag:'CS',
+    navEarn:'Revenue', navGoods:'Items', navEmp:'Staff', navCal:'Calendar',
+    weekdays:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    toastMax:'Up to {n} employees can be deployed — remove one first',
+    toastSwitch:'Switched to {d}', toastBack:'Back to current day',
+    toastReset:'Default lineup restored', toastLang:'Switched to {l}',
+    langLabel:'English',
+    goodsNote:`<h3>Calculation Rules</h3>
+        <p>
+          Each item is made of several <b>ingredients</b>; the trend bonus applies to ingredients:<br>
+          · Ingredient matches today's trend → base price gets an extra <code>+trend bonus</code> before calculation<br>
+          · No match → calculated on the adjusted price only<br>
+          Adj. price = (Base price + Price add) × (1 + Price add%)<br>
+          Revenue = Adj. price × 24 × Traffic multiplier
+        </p>`,
+    empNote:`<h3>Rules</h3>
+        <p>
+          Up to <code>10 employees + 1 exclusive customer service</code>; only bonuses on the "Deployed" side count.<br>
+          Total traffic = (2400 + ΣTraffic) × (1 + ΣTraffic%)<br>
+          Traffic multiplier = Total traffic ÷ 2400<br>
+          With the default lineup: (2400 + 279) × 1.035 = <code>2772.77</code>, multiplier <code>1.1553×</code>
+        </p>`,
+    calNote:`<h3>Cycle Order</h3>
+            <p>Main Dishes → Desserts → Beverages → Flour → Fruit → Coffee Beans, one cycle every 6 days. Main Dishes / Desserts / Beverages have a bonus of <code>1</code>; Flour / Fruit / Coffee Beans <code>0.75</code>.</p>
+            <p style="margin-top:7px">The bonus takes effect at <b style="color:var(--gold2)">12:00 daily</b>; before 12:00 the previous day's bonus still applies (the gold "ON" cell marks the currently active day).</p>`,
+  }
+};
+
+let LANG = 'zh';
+
+function T(k, v){
+  const d = I18N[LANG] || I18N.zh;
+  let s = (d[k] !== undefined) ? d[k] : (I18N.zh[k] !== undefined ? I18N.zh[k] : k);
+  if(v) for(const p in v) s = s.split('{'+p+'}').join(v[p]);
+  return s;
+}
+function TA(k){ const d = I18N[LANG] || I18N.zh; return d[k] !== undefined ? d[k] : I18N.zh[k]; }
+function catName(c, short){ return LANG==='en' ? ((short ? CAT_EN_S[c] : CAT_EN[c]) || c) : c; }
+function prodName(p){ return LANG==='en' ? (PROD_EN[p.n] || p.n) : p.n; }
+function empName(n){ return LANG==='en' ? (EMP_EN[n] || n) : n; }
+function weekdayName(d){ return LANG==='en' ? TA('weekdays')[d.getDay()] : '周' + TA('weekdays')[d.getDay()]; }
+
+function applyLang(){
+  document.documentElement.lang = LANG==='en' ? 'en' : 'zh-CN';
+  document.title = T('docTitle');
+  document.querySelectorAll('[data-t]').forEach(el=>{ el.textContent = T(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(el=>{ el.innerHTML = T(el.dataset.th); });
+  document.querySelectorAll('#langSw span[data-l]').forEach(el=> el.classList.toggle('on', el.dataset.l === LANG));
+}
+function setLang(l){
+  LANG = (l === 'en') ? 'en' : 'zh';
+  S.lang = LANG;
+  applyLang();
+  render();
+}
+
 /* ================= 工具 ================= */
 const $ = s => document.querySelector(s);
 function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -568,12 +771,12 @@ function nextSwitch(now){
 function fmt(n,dp){
   if(!isFinite(n)) return '0';
   const d = dp===undefined ? (Math.abs(n)>=1000?0:1) : dp;
-  return n.toLocaleString('zh-CN',{minimumFractionDigits:d, maximumFractionDigits:d});
+  return n.toLocaleString(LANG==='en'?'en-US':'zh-CN',{minimumFractionDigits:d, maximumFractionDigits:d});
 }
 function trim(n){ return (Math.round(n*100)/100).toString(); }
 
 /* ================= 状态 ================= */
-let S = {sel: DEF_SEL.slice(), date: ymd(effDate()), auto: true, used: DEF_USED.slice(), cs: true};
+let S = {sel: DEF_SEL.slice(), date: ymd(effDate()), auto: true, used: DEF_USED.slice(), cs: true, lang:'zh', fold:true};
 
 /* ================= 计算 ================= */
 function buffs(){
@@ -625,9 +828,8 @@ function paintNote(){
   const h = Math.floor(ms/3600000), m = Math.floor(ms%3600000/60000), s = Math.floor(ms%60000/1000);
   const clock = h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
   const after = new Date(ns.getFullYear(), ns.getMonth(), ns.getDate());
-  $('#heroNote').innerHTML = S.auto
-    ? `<b>${clock}</b> 后切换 → ${ymd(after).slice(5).replace('-','.')} ${catOf(after)}`
-    : `手动选择中 · <b>${clock}</b> 后进 ${ymd(after).slice(5).replace('-','.')} ${catOf(after)}`;
+  $('#heroNote').innerHTML = T(S.auto ? 'noteAuto' : 'noteManual',
+    {clock, date: ymd(after).slice(5).replace('-','.'), cat: catName(catOf(after))});
 }
 
 function paint(el, cat, glow){
@@ -636,10 +838,10 @@ function paint(el, cat, glow){
   if(glow) el.style.setProperty('--cat-glow', CAT_COLOR[cat]+'55');
 }
 const STAT_META = [
-  ['flow',   '人流量',   'b1'],
-  ['sellAdd','售价加成', 'b2'],
-  ['sellPct','售价加成%','b3'],
-  ['flowPct','人流量%',  'b4'],
+  ['flow',   'kFlow',    'b1'],
+  ['sellAdd','kSellAdd', 'b2'],
+  ['sellPct','kSellPct', 'b3'],
+  ['flowPct','kFlowPct', 'b4'],
 ];
 
 function render(){
@@ -648,42 +850,52 @@ function render(){
 
   const eff = effDate();
   $('#todayStr').textContent = ymd(eff).replace(/-/g,'.');
-  $('#todayCat').textContent = catOf(eff) + ' 生效中';
+  $('#todayCat').textContent = T('todayCat', {cat: catName(catOf(eff))});
 
   $('#btnAuto').style.display = S.auto ? 'none' : 'inline-block';
   paintNote();
 
   $('#dateIn').value = S.date;
-  $('#weekday').textContent = '周'+'日一二三四五六'[d.getDay()];
-  $('#trendName').textContent = R.cat;
+  $('#weekday').textContent = weekdayName(d);
+  $('#trendName').textContent = catName(R.cat);
   $('#trendAdd').textContent = '×' + CAT_ADD[R.cat];
   paint($('#hero'), R.cat, true);
   paint($('#trendChip'), R.cat, false);
-  $('#trendTip').textContent = '命中品类价格 +' + CAT_ADD[R.cat];
+  $('#trendTip').textContent = T('tip', {n: CAT_ADD[R.cat]});
   $('#cycle').innerHTML = CATS.map(c=>
-    `<div class="cyc ${c===R.cat?'on':''}" style="--cat-bg:${CAT_COLOR[c]}">${c}</div>`).join('');
+    `<div class="cyc ${c===R.cat?'on':''}" style="--cat-bg:${CAT_COLOR[c]}">${catName(c,true)}</div>`).join('');
 
   $('#sRev').innerHTML  = fmt(R.rev,2) + '<span class="u">/h</span>';
   $('#sMul').innerHTML  = R.flowMul.toFixed(4) + '<span class="u">×</span>';
   $('#sFlow').innerHTML = fmt(R.flow,0);
 
-  /* 上架商品 */
-  $('#selCount').textContent = `已选 ${S.sel.length} / ${PRODUCTS.length}`;
+  /* 上架商品：已选的完整展示，未选的折叠成一行 */
+  $('#selCount').textContent = T('selCount', {n: S.sel.length, t: PRODUCTS.length});
   const ingTags = (p, cat, mini) =>
     `<div class="ing${mini?' mini2':''}">` +
-    p.ing.map(c=>`<i class="${c===cat?'on':''}" style="--c:${CAT_COLOR[c]}">${c}</i>`).join('') +
+    p.ing.map(c=>`<i class="${c===cat?'on':''}" style="--c:${CAT_COLOR[c]}">${catName(c)}</i>`).join('') +
     `</div>`;
-  $('#selList').innerHTML = R.rows.map((r,i)=>{
-    const on = S.sel.includes(i), diff = r.val - r.no, hitOn = on && r.hit;
-    return `<div class="item ${on?'sel':''} ${hitOn?'hit':''}" data-i="${i}" style="--cat-c:${r.hit?CAT_COLOR[R.cat]:'rgba(255,255,255,.12)'}">
+
+  let selHtml = '', idleHtml = '';
+  R.rows.forEach((r,i)=>{
+    if(!S.sel.includes(i)){
+      idleHtml += `<div class="item mini" data-i="${i}" style="--cat-c:${CAT_COLOR[R.cat]}">
+        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1411" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
+        <div class="nm">${prodName(r.p)}</div>
+        <div class="pv ${r.hit?'hit':''}">${r.p.p}</div>
+      </div>`;
+      return;
+    }
+    const diff = r.val - r.no;
+    selHtml += `<div class="item sel ${r.hit?'hit':''}" data-i="${i}" style="--cat-c:${r.hit?CAT_COLOR[R.cat]:'rgba(255,255,255,.12)'}">
       <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1411" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
       <div class="info">
-        <div class="nm">${r.p.n}</div>
+        <div class="nm">${prodName(r.p)}</div>
         ${ingTags(r.p, R.cat)}
         <div class="mt">
-          <span>基础 <b>${r.p.p}</b></span>
-          <span>加成价 <b>${fmt(r.price,2)}</b></span>
-          <span>${r.hit ? '<span style="color:'+CAT_COLOR[R.cat]+'">命中 '+R.cat+'</span>' : '未命中'}</span>
+          <span>${T('itemBase')} <b>${r.p.p}</b></span>
+          <span>${T('itemAdj')} <b>${fmt(r.price,2)}</b></span>
+          <span>${r.hit ? '<span style="color:'+CAT_COLOR[R.cat]+'">'+T('itemHit',{cat:catName(R.cat)})+'</span>' : T('itemMiss')}</span>
         </div>
       </div>
       <div class="earn">
@@ -691,21 +903,31 @@ function render(){
         <div class="d ${r.hit?'up':''}">${r.hit ? '↑ +'+fmt(diff,0) : fmt(r.no,0)}</div>
       </div>
     </div>`;
-  }).join('');
+  });
+  $('#selList').innerHTML = selHtml;
+  $('#idleList').innerHTML = idleHtml;
+
+  /* 未选商品折叠栏 */
+  const idleN = PRODUCTS.length - S.sel.length;
+  $('#idleWrap').classList.toggle('hide', idleN === 0);
+  $('#foldBar').classList.toggle('on', idleN > 0);
+  $('#idleList').classList.toggle('hide', S.fold || idleN === 0);
+  $('#foldBar').classList.toggle('open', !S.fold);
+  $('#foldText').textContent = T(S.fold ? 'foldShow' : 'foldHide', {n: idleN});
 
   /* 各风向标对照 */
   $('#cmpBody').innerHTML = R.cmp.map(o=>
     `<tr class="${o.c===R.cat?'hi':''}" style="--cat-c:${CAT_COLOR[o.c]}">
-       <td><span class="dotc" style="background:${CAT_COLOR[o.c]}"></span>${o.c}</td>
+       <td><span class="dotc" style="background:${CAT_COLOR[o.c]}"></span>${catName(o.c)}</td>
        <td class="muted">+${o.add}</td>
        <td class="muted">${o.n}</td>
        <td class="${o.c===R.cat?'hot':''}">${fmt(o.rev,2)}</td></tr>`).join('');
 
   /* 商品总览 */
-  $('#goodsCat').textContent = '当前：' + R.cat + ' ×' + CAT_ADD[R.cat];
+  $('#goodsCat').textContent = T('goodsCat', {cat: catName(R.cat), n: CAT_ADD[R.cat]});
   $('#goodsBody').innerHTML = R.rows.map(r=>
     `<tr class="${r.hit?'hi':''}" style="--cat-c:${r.hit?CAT_COLOR[R.cat]:'rgba(255,255,255,.12)'}">
-       <td>${r.p.n}${ingTags(r.p, R.cat, true)}</td>
+       <td>${prodName(r.p)}${ingTags(r.p, R.cat, true)}</td>
        <td class="muted">${r.p.p}</td><td>${fmt(r.price,2)}</td>
        <td class="${r.hit?'muted':''}">${fmt(r.no,0)}</td>
        <td class="${r.hit?'hot':'muted'}">${fmt(r.val,0)}</td></tr>`).join('');
@@ -721,13 +943,13 @@ function render(){
   const idleEmp = EMP.filter(e=>!S.used.includes(e.n));
   const card = e => {
     const chips = STAT_META.filter(([k])=> e.s[k]!==undefined)
-      .map(([k,label,cls])=>`<i class="${cls}">${label} +${trim(e.s[k])}</i>`).join('');
+      .map(([k,label,cls])=>`<i class="${cls}">${T(label)} +${trim(e.s[k])}</i>`).join('');
     return `<div class="emp ${S.used.includes(e.n)?'on':'off'}" data-n="${e.n}" data-cs="0">
-      <div class="en">${e.n}</div><div class="es">${chips}</div></div>`;
+      <div class="en">${empName(e.n)}</div><div class="es">${chips}</div></div>`;
   };
   const csCard = on => `<div class="emp ${on?'on':'off'}" data-n="${CS.n}" data-cs="1">
-      <div class="en">${CS.n}<span class="cs">专属</span></div>
-      <div class="es"><i class="b4">人流量% +1</i></div></div>`;
+      <div class="en">${T('csName')}<span class="cs">${T('csTag')}</span></div>
+      <div class="es"><i class="b4">${T('kFlowPct')} +1</i></div></div>`;
 
   $('#col-used').innerHTML = usedEmp.map(card).join('') + (S.cs ? csCard(true) : '');
   $('#col-idle').innerHTML = idleEmp.map(card).join('') + (S.cs ? '' : csCard(false));
@@ -740,17 +962,17 @@ function render(){
 
   /* 日历 */
   const start = parseYmd(S.date);
-  $('#calHead').innerHTML = ['日','一','二','三','四','五','六'].map(x=>`<div class="h">${x}</div>`).join('');
+  $('#calHead').innerHTML = TA('weekdays').map(x=>`<div class="h">${x}</div>`).join('');
   let cells = '';
   for(let i=0;i<start.getDay();i++) cells += '<div></div>';
   for(let i=0;i<28;i++){
     const dd = new Date(start.getFullYear(), start.getMonth(), start.getDate()+i);
     const c = catOf(dd), k = ymd(dd), isEff = k === ymd(effDate());
-    cells += `<div class="day ${k===S.date?'today':''} ${isEff?'eff':''} ${i>13?'dim':''}" style="--cat-bg:${CAT_COLOR[c]}" data-d="${k}" title="${c}">
+    cells += `<div class="day ${k===S.date?'today':''} ${isEff?'eff':''} ${i>13?'dim':''}" style="--cat-bg:${CAT_COLOR[c]}" data-d="${k}" title="${catName(c)}">
       <div class="dd">${dd.getDate()}</div><div class="dc"></div></div>`;
   }
   $('#calGrid').innerHTML = cells;
-  $('#legend').innerHTML = CATS.map(c=>`<div class="lg"><i style="background:${CAT_COLOR[c]}"></i>${c}</div>`).join('');
+  $('#legend').innerHTML = CATS.map(c=>`<div class="lg"><i style="background:${CAT_COLOR[c]}"></i>${catName(c)}</div>`).join('');
 
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
 }
@@ -813,6 +1035,7 @@ window.addEventListener('scroll', scrollSpy, {passive:true});
 document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){ goView(tab.dataset.v); return; }
+  if(e.target.closest('#foldBar')){ S.fold = !S.fold; render(); return; }
   const it = e.target.closest('.item');
   if(it){
     const i = +it.dataset.i, k = S.sel.indexOf(i);
@@ -825,14 +1048,22 @@ document.addEventListener('click', e=>{
     const n = emp.dataset.n, k = S.used.indexOf(n);
     if(k>-1) S.used.splice(k,1);
     else {
-      if(S.used.length >= MAX_EMP){ toast(`最多上阵 ${MAX_EMP} 名雇员，请先撤下一位`); return; }
+      if(S.used.length >= MAX_EMP){ toast(T('toastMax',{n:MAX_EMP})); return; }
       S.used.push(n);
       S.used = EMP_NAMES.filter(x=>S.used.includes(x));
     }
     render(); return;
   }
   const day = e.target.closest('.day');
-  if(day){ S.date = day.dataset.d; S.auto = false; render(); toast('已切到 ' + S.date); return; }
+  if(day){ S.date = day.dataset.d; S.auto = false; render(); toast(T('toastSwitch',{d:S.date})); return; }
+});
+
+$('#langSw').addEventListener('click', e=>{
+  const s = e.target.closest('span[data-l]');
+  if(!s || s.dataset.l === LANG) return;
+  const l = s.dataset.l;
+  setLang(l);
+  toast(T('toastLang', {l: I18N[l] ? I18N[l].langLabel : l}));
 });
 
 $('#dateIn').addEventListener('change', e=>{
@@ -840,11 +1071,11 @@ $('#dateIn').addEventListener('change', e=>{
 });
 
 $('#btnAuto').addEventListener('click', ()=>{
-  S.auto = true; S.date = ymd(effDate()); render(); toast('已回到当前生效日');
+  S.auto = true; S.date = ymd(effDate()); render(); toast(T('toastBack'));
 });
 
 $('#btnReset').addEventListener('click', ()=>{
-  S.used = DEF_USED.slice(); S.cs = true; render(); toast('已恢复表格默认编排');
+  S.used = DEF_USED.slice(); S.cs = true; render(); toast(T('toastReset'));
 });
 
 function toast(t){
@@ -869,6 +1100,10 @@ function toast(t){
   }catch(e){}
   if(!Array.isArray(S.sel) || !S.sel.length) S.sel = DEF_SEL.slice();
   if(S.auto || !S.date) S.date = ymd(effDate());
+  const ql = new URLSearchParams(location.search).get('lang');   /* ?lang=en 可直接进英文 */
+  if(ql === 'en' || ql === 'zh') S.lang = ql;
+  LANG = (S.lang === 'en') ? 'en' : 'zh';
+  applyLang();
   render();
   applyViews();
   syncNavH();
