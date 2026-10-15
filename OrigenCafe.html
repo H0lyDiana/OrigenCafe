@@ -481,17 +481,6 @@
       </div>
     </section>
 
-    <section class="view" id="v-goods">
-      <div class="sec-t"><h2 data-t="goodsTitle">商品收益总览</h2><span id="goodsCat">—</span></div>
-      <div class="tbl">
-        <table>
-          <thead><tr><th data-t="thItem">商品</th><th data-t="thBase">基础</th><th data-t="thAdj">加成价</th><th data-t="thNo">无风向标</th><th data-t="thToday">今日收益</th></tr></thead>
-          <tbody id="goodsBody"></tbody>
-        </table>
-      </div>
-      <div class="note" data-th="goodsNote"></div>
-    </section>
-
     <section class="view" id="v-emp">
       <div class="sec-t"><h2 data-t="empTitle">加成汇总</h2><span data-t="empSub"></span></div>
       <div class="buffrow">
@@ -518,6 +507,17 @@
       <div class="note" data-th="empNote"></div>
     </section>
 
+    <section class="view" id="v-goods">
+      <div class="sec-t"><h2 data-t="goodsTitle">商品收益总览</h2><span id="goodsCat">—</span></div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th data-t="thItem">商品</th><th data-t="thBase">基础</th><th data-t="thAdj">加成价</th><th data-t="thNo">无风向标</th><th data-t="thToday">今日收益</th></tr></thead>
+          <tbody id="goodsBody"></tbody>
+        </table>
+      </div>
+      <div class="note" data-th="goodsNote"></div>
+    </section>
+
     <section class="view" id="v-cal">
       <div class="sec-t"><h2 data-t="calTitle">风向标日历</h2><span data-t="calSub"></span></div>
       <div class="cal-wrap">
@@ -539,10 +539,10 @@
   <nav>
     <div class="tab on" data-v="earn">
       <svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg><span data-t="navEarn">收益</span></div>
-    <div class="tab" data-v="goods">
-      <svg viewBox="0 0 24 24"><path d="M6 3h12l1 6H5l1-6Z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/></svg><span data-t="navGoods">商品</span></div>
     <div class="tab" data-v="emp">
       <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16 8.5a3 3 0 1 1 0 5.6M17.5 14.9c2.1.6 3.5 2.1 3.5 4.4"/></svg><span data-t="navEmp">雇员</span></div>
+    <div class="tab" data-v="goods">
+      <svg viewBox="0 0 24 24"><path d="M6 3h12l1 6H5l1-6Z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/></svg><span data-t="navGoods">商品</span></div>
     <div class="tab" data-v="cal">
       <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-t="navCal">日历</span></div>
   </nav>
@@ -590,12 +590,12 @@ const EMP = [
 ];
 const CS = {n:'专属客服', s:{flowPct:1}, cs:true};
 const EMP_NAMES = EMP.map(e=>e.n);
-const DEF_USED = ['哈尼娅','埃德嘉','海月','早雾','达芙蒂尔','小吱','安魂曲','真红','伊洛伊','灵可'];
+const DEF_USED = ['哈尼娅','埃德嘉','海月','早雾','明音凛','小吱','安魂曲','真红','伊洛伊','灵可'];
 const MAX_EMP = 10;
 const BASE_FLOW = 2400;
 
 const BASE_DAY = Date.UTC(2026,8,11);
-const KEY = 'yikaishe.v3';
+const KEY = 'yikaishe.v4';   /* v4：默认编排改为明音凛（替换达芙蒂尔），旧缓存不再沿用 */
 
 /* ================= 中英词条（英文词条参考 word.xlsx） ================= */
 const CAT_EN   = {'主食':'Main Dishes','甜品':'Desserts','饮料':'Beverages','面粉':'Flour','水果':'Fruit','咖啡豆':'Coffee Beans'};
@@ -662,7 +662,7 @@ const I18N = {
           上阵上限 <code>10 名雇员 + 1 名专属客服</code>，只有「已使用」一侧的加成参与计算。<br>
           总人流量 = (2400 + Σ人流量) × (1 + Σ人流量%)<br>
           人流量加成 = 总人流量 ÷ 2400<br>
-          默认编排下：(2400 + 279) × 1.035 = <code>2772.77</code>，加成 <code>1.1553×</code>
+          默认编排下：(2400 + 297) × 1.035 = <code>2791.40</code>，加成 <code>1.1631×</code>
         </p>`,
     calNote:`<h3>循环顺序</h3>
             <p>主食 → 甜品 → 饮料 → 面粉 → 水果 → 咖啡豆，每 6 天一轮。主食 / 甜品 / 饮料加成为 <code>1</code>，面粉 / 水果 / 咖啡豆加成为 <code>0.75</code>。</p>
@@ -712,7 +712,7 @@ const I18N = {
           Up to <code>10 employees + 1 exclusive customer service</code>; only bonuses on the "Deployed" side count.<br>
           Total traffic = (2400 + ΣTraffic) × (1 + ΣTraffic%)<br>
           Traffic multiplier = Total traffic ÷ 2400<br>
-          With the default lineup: (2400 + 279) × 1.035 = <code>2772.77</code>, multiplier <code>1.1553×</code>
+          With the default lineup: (2400 + 297) × 1.035 = <code>2791.40</code>, multiplier <code>1.1631×</code>
         </p>`,
     calNote:`<h3>Cycle Order</h3>
             <p>Main Dishes → Desserts → Beverages → Flour → Fruit → Coffee Beans, one cycle every 6 days. Main Dishes / Desserts / Beverages have a bonus of <code>1</code>; Flour / Fruit / Coffee Beans <code>0.75</code>.</p>
